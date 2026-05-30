@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Tugas_Game</title>
+	
+	<link rel="manifest" href="appmanifest.json" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
+
+	<style type="text/css">
+		* { padding: 0; margin: 0; }
+		html, body {
+			background: #000;
+			color: #fff;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+		}
+		#c2canvasdiv {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		canvas { display: block; background: #000; }
+	</style>
+</head> 
+ 
+<body> 
+
+	<div id="c2canvasdiv">
+		<canvas id="c2canvas" width="1280" height="720">
+			<h1>Browser tidak mendukung HTML5.</h1>
+		</canvas>
+	</div>
+
+    <!-- ✅ URUTAN SUDAH DIPERBAIKI 100% -->
+	<script src="jquery-3.4.1.min.js"></script>
+    <script src="c2runtime.js"></script>
+    <script src="data.js"></script>
+    <script src="offline.js"></script>
+    <script src="offlineClient.js"></script>
+
+    <script>
+		// ✅ PAKAI CARA PANGGIL YANG LEBIH KOMPATIBEL
+		window.onload = function() {
+			if (typeof cr_createRuntime !== 'undefined') {
+				cr_createRuntime("c2canvas");
+			} else {
+				console.error("Gagal memuat: File c2runtime/data.js tidak terbaca");
+				alert("Gagal memuat game. Pastikan semua file terunggah.");
+			}
+		};
+		
+		// Fungsi jeda
+		document.addEventListener("visibilitychange", function(){
+			if (document.hidden && typeof cr_setSuspended !== 'undefined') cr_setSuspended(true);
+			else if (typeof cr_setSuspended !== 'undefined') cr_setSuspended(false);
+		});
+    </script>
+
+</body> 
+</html>
